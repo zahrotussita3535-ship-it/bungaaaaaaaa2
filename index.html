@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bunga Spesial Buat Kamu</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #ffeef2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        .flower-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Batang Bunga */
+        .stem {
+            width: 8px;
+            height: 150px;
+            background: linear-gradient(to bottom, #5a9e32, #3b6e1a);
+            border-radius: 4px;
+            position: absolute;
+            top: 140px;
+            z-index: 1;
+        }
+
+        /* Daun */
+        .leaf {
+            width: 40px;
+            height: 25px;
+            background: #5a9e32;
+            border-radius: 0 25px 0 25px;
+            position: absolute;
+            top: 200px;
+            left: -35px;
+            transform: rotate(-15deg);
+            z-index: 1;
+        }
+
+        .leaf.right {
+            border-radius: 25px 0 25px 0;
+            left: 5px;
+            transform: rotate(15deg);
+        }
+
+        /* Induk Bunga */
+        .flower {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        /* Kelopak Bunga */
+        .petal {
+            position: absolute;
+            width: 70px;
+            height: 130px;
+            background: linear-gradient(to top, #ff758c, #ff7eb3);
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            transform-origin: bottom center;
+            bottom: 150px;
+            transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 1s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transform: scale(0) rotate(var(--i));
+        }
+
+        /* Efek Mekar saat class 'bloom' aktif */
+        .flower.bloom .petal {
+            transform: scale(1) rotate(var(--i)) translateY(-20px);
+        }
+
+        /* Bagian Tengah Bunga (Tempat Gambar) */
+        .center-core {
+            position: absolute;
+            width: 110px;
+            height: 110px;
+            background-color: #f7d070;
+            border-radius: 50%;
+            z-index: 10;
+            border: 5px solid #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: scale(0);
+            transition: transform 1s 0.5s ease;
+        }
+
+        .flower.bloom .center-core {
+            transform: scale(1);
+        }
+
+        .center-core img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Teks Instruksi */
+        .hint {
+            margin-top: 180px;
+            font-size: 1.1rem;
+            color: #d15b70;
+            font-weight: 600;
+            animation: pulse 1.5s infinite;
+            text-align: center;
+            z-index: 5;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="flower-container">
+        <!-- Struktur Bunga -->
+        <div class="flower" id="flower">
+            <!-- 8 Kelopak melingkar -->
+            <div class="petal" style="--i: 0deg;"></div>
+            <div class="petal" style="--i: 45deg;"></div>
+            <div class="petal" style="--i: 90deg;"></div>
+            <div class="petal" style="--i: 135deg;"></div>
+            <div class="petal" style="--i: 180deg;"></div>
+            <div class="petal" style="--i: 225deg;"></div>
+            <div class="petal" style="--i: 270deg;"></div>
+            <div class="petal" style="--i: 315deg;"></div>
+            
+            <!-- Inti Tengah + Gambar -->
+            <div class="center-core">
+                <!-- GANTI LINK DI BAWAH INI DENGAN URL FOTO KAMU -->
+                <img src="GANTI_DENGAN_URL_GAMBAR_KAMU" alt="Foto Spesial">
+            </div>
+        </div>
+
+        
+        <div class="stem"></div>
+        <div class="leaf"></div>
+        <div class="leaf right"></div>
+
+        
+        <div class="hint" id="hint-text">Klik bunganya untuk mekar ✨</div>
+    </div>
+
+    <script>
+        const flower = document.getElementById('flower');
+        const hintText = document.getElementById('hint-text');
+
+        flower.addEventListener('click', () => {
+            flower.classList.toggle('bloom');
+            if(flower.classList.contains('bloom')) {
+                hintText.textContent = "Bunganya mekar buat kamu! 🌸";
+                hintText.style.animation = "none";
+            } else {
+                hintText.textContent = "Klik bunganya untuk mekar ✨";
+                hintText.style.animation = "pulse 1.5s infinite";
+            }
+        });
+    </script>
+</body>
+</html>
